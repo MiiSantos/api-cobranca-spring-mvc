@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="StandartLayout">
+
+<head>
+    <title>Pesquisa de títulos</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+</head>
+
+<section layout:fragment="content">
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+                <img alt="lotus-flower" src="/images/lotus.png">
+                Condomínio Lótus </a>
+        </div>
+    </nav>
+<div class="card">
+    <div class="card-body">
+        <div class="card-header clearfix">
+            <h5 class="float-start">Pesquisa de Títulos</h5>
+            <a class="btn btn-link float-end text-decoration-none p-0 pr-5" href="/titles/new">Novo título</a>
+        </div>
+        <div class="d-flex justify-content-end">
+        <form class="d-flex col-md-4 m-3">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="col-md-1">#</th>
+                <th class="col-md-4">Descrição</th>
+                <th class="col-md-2 text-center">Data de Vencimento</th>
+                <th class="col-md-2 text-end">Valor</th>
+                <th class="col-md-2 text-center">Status</th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="title : ${titles}" >
+                <th scope="row"></th>
+                <td th:text="${title.code}"></td>
+                <td th:text="${{title.dueDate}}" class="text-center"></td>
+                <td th:text="|R$ ${{title.amount}}|" class="text-end"></td>
+                <td class="text-center">
+                    <span th:text="${title.status.description}" class="label"
+                        th:classappend="${title.pending ? 'label-danger' : 'label-success'}"></span>
+                </td>
+                <td class="text-center"></td>
+            </tr>
+            <tr class="alert alert-info" th:if="${#lists.isEmpty(titles)}">
+                <td colspan="6">Nenhum título foi encontrado.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+</html>

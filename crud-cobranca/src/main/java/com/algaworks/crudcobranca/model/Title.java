@@ -67,6 +67,10 @@ public class Title {
         this.status = status;
     }
 
+    public boolean isPending() {
+        return StatusTitle.PENDING.equals(this.status);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

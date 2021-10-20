@@ -2,8 +2,8 @@ package com.algaworks.crudcobranca.model;
 
 public enum StatusTitle {
 
-    PENDENTE("Pendente"),
-    RECEBIDO("Recebido");
+    PENDING("Pendente"),
+    RECEIVED("Recebido");
 
     private String description;
 
