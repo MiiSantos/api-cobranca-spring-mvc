@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -15,12 +16,18 @@ public class Title {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long code;
 
+    @NotEmpty(message = "Por favor informar a descrição.")
+    @Size(max = 60, message = "A mensagem deve ter no máximo 60 caracteres.")
     private String description;
 
+    @NotNull(message = "Obrigatório informar data de vencimento.")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 
+    @NotNull(message = "Por favor informe o valor do título.")
+    @DecimalMin(value = "0,01")
+    @DecimalMax(value = "9999,99")
     @NumberFormat(pattern = "#,##0.00")
     private BigDecimal amount;
 
